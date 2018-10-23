@@ -43,12 +43,10 @@ node {
    archive 'target/*.jar'
 }
 properties([
-    pipelineTriggers([
-        triggers: [
-            [
-                $class: 'jenkins.triggers.ReverseBuildTrigger',
-                upstreamProjects: "pipeline example jenkins", threshold: hudson.model.Result.SUCCESS
-            ]
-        ]
-    ]),
+  pipelineTriggers([
+    upstream(
+      threshold: 'SUCCESS',
+      upstreamProjects: '../jenkins example 2/master'
+    )
+  ])
 ])
