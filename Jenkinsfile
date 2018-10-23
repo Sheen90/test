@@ -42,3 +42,13 @@ node {
    sh 'echo "write your deploy code here"; sleep 6;'
    archive 'target/*.jar'
 }
+properties([
+    pipelineTriggers([
+        triggers: [
+            [
+                $class: 'jenkins.triggers.ReverseBuildTrigger',
+                upstreamProjects: "pipeline example jenkins", threshold: hudson.model.Result.SUCCESS
+            ]
+        ]
+    ]),
+])
